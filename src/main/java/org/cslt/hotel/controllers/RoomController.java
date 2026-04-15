@@ -39,9 +39,4 @@ public class RoomController {
         roomService.deleteRoomById(id);
     }
 
-    @GetMapping("/search-room")
-    public List<Room> searchRoom(@RequestParam String roomType, @RequestParam Integer roomCapacity, @RequestParam Integer isPetFriendly, @RequestParam Integer roomAvailability) {
-        
-    }
-
 }
