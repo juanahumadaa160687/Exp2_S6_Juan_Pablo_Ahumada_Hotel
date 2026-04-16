@@ -49,4 +49,14 @@ public class RoomServiceImpl implements RoomService {
         return null;
     }
 
+    @Override
+    public List<Room> searchRooms(int capacity, String is_PetFriendly) {
+        for(Room room : roomRepository.findAll()) {
+            if (room.getRoom_capacity() >= capacity && room.getIs_PetFriendly().equals(is_PetFriendly)) {
+                return roomRepository.searchRooms(capacity, is_PetFriendly);
+            }
+        }
+        return null;
+    }
+
 }

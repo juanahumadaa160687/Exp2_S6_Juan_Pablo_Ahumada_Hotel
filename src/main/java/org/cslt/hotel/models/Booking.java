@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
+
 @Entity
 @Table(name = "BOOKING")
 
@@ -27,10 +29,10 @@ public class Booking {
     private String status;
 
     @Column(nullable = false, columnDefinition = "DATE")
-    private String checkin_date;
+    private Date checkin_date;
 
     @Column(nullable = false, columnDefinition = "DATE")
-    private String checkout_date;
+    private Date checkout_date;
 
     @Column(nullable = false, columnDefinition = "INTEGER")
     private int adults;
@@ -40,6 +42,9 @@ public class Booking {
 
     @Column(nullable = false, columnDefinition = "VARCHAR(3) CHECK(pets IN ('SI', 'NO'))")
     private String pets;
+
+    @Column(nullable = false, columnDefinition = "DECIMAL(10, 2)")
+    private Double total_price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", nullable = false, foreignKey = @ForeignKey(name = "FK_BOOKING_ROOM"))

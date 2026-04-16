@@ -17,6 +17,12 @@ public class Guest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long guest_id;
 
+    @Column(nullable = false, columnDefinition = "VARCHAR(20) CHECK(doc_type IN ('DNI', 'PASAPORTE'))")
+    private String doc_type;
+
+    @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(20)")
+    private String doc_number;
+
     @Column(nullable = false, columnDefinition = "VARCHAR(50)")
     private String first_name;
 

@@ -5,6 +5,8 @@ import org.cslt.hotel.services.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/guests")
 public class GuestController {
@@ -13,8 +15,8 @@ public class GuestController {
     private GuestService guestService;
 
     @GetMapping("/all")
-    public String getAllGuests() {
-        return "List of all guests";
+    public List<Guest> getAllGuests() {
+        return guestService.getAllGuests();
     }
 
     @GetMapping("/{id}")
