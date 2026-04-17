@@ -40,7 +40,6 @@ public class RoomServiceImpl implements RoomService {
             existingRoom.setRoom_number(room.getRoom_number());
             existingRoom.setRoom_type(room.getRoom_type());
             existingRoom.setRoom_price(room.getRoom_price());
-            existingRoom.setRoom_availability(room.getRoom_availability());
             existingRoom.setRoom_capacity(room.getRoom_capacity());
             existingRoom.setRoom_description(room.getRoom_description());
             existingRoom.setRoom_type(room.getIs_PetFriendly());

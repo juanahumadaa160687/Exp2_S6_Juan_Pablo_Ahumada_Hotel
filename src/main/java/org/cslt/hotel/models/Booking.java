@@ -25,7 +25,7 @@ public class Booking {
     @Column(length = 100, nullable = false, unique = true, columnDefinition = "VARCHAR(100)")
     private String code;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(20) CHECK(status IN ('CONFIRMADA', 'CANCELADA', 'PENDIENTE'))")
+    @Column(nullable = false, columnDefinition = "VARCHAR(20) CHECK(status IN ('CONFIRMADA', 'PENDIENTE'))")
     private String status;
 
     @Column(nullable = false, columnDefinition = "DATE")

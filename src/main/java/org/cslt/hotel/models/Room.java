@@ -38,7 +38,4 @@ public class Room {
     @Column(nullable = false, columnDefinition = "VARCHAR(2)")
     private String is_PetFriendly;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(20) CHECK(room_availability IN ('DISPONIBLE', 'OCUPADA', 'MANTENIMIENTO'))")
-    private String room_availability;
-
 }

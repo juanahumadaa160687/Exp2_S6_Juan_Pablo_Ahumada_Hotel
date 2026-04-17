@@ -1,6 +1,8 @@
 package org.cslt.hotel.services;
 
 import org.cslt.hotel.models.Booking;
+import org.cslt.hotel.models.Guest;
+import org.cslt.hotel.models.Room;
 import org.cslt.hotel.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,16 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void deleteBookingById(Long id) {
         bookingRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Room> searchRooms(int capacity, String is_PetFriendly) {
+        return bookingRepository.searchRooms(capacity, is_PetFriendly);
+    }
+
+    @Override
+    public Guest findGuestByDocNumber(String docNumber) {
+        return bookingRepository.findGuestByDocNumber(docNumber);
     }
 
 }

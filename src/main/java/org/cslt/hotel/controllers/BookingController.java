@@ -1,13 +1,14 @@
 package org.cslt.hotel.controllers;
 
 import org.cslt.hotel.models.Booking;
+import org.cslt.hotel.models.Guest;
+import org.cslt.hotel.models.Room;
 import org.cslt.hotel.services.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.List;
-
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
@@ -34,34 +35,59 @@ public class BookingController {
     }
 
     @PostMapping("/new-booking")
-    public Booking newBooking(@RequestParam Long guestId, @RequestParam int adults, @RequestParam int childs, @RequestParam String pet, @RequestParam Date check_in, @RequestParam Date check_out) {
+    public Booking newBooking(@RequestParam String doc_number, @RequestParam int adults, @RequestParam int childs, @RequestParam String pet, @RequestParam Date check_in, @RequestParam Date check_out) {
 
-        Booking booking = new Booking();
+        System.out.println("New booking");
 
-        GuestController guestController = new GuestController();
+        List<Room> availableRooms = bookingService.searchRooms(adults + childs, pet);
 
-        int total_guests = adults + childs;
+        Guest guest = bookingService.findGuestByDocNumber(doc_number);
 
-        for (Booking booking1 : bookingService.getAllBookings()) {
-            if(booking1.getCheckin_date().compareTo(check_in) <= 0 && booking1.getCheckout_date().compareTo(check_out) >= 0){
-                if(booking1.getRoom().getRoom_capacity() >= total_guests && booking1.getRoom().getIs_PetFriendly().equalsIgnoreCase(pet)) {
-                    booking.setRoom(booking1.getRoom());
-                    break;
+        System.out.println("Guest: " + guest.getFirst_name() + " " + guest.getLast_name());
+
+        if(bookingService.getAllBookings().isEmpty()) {
+            Booking booking = new Booking();
+            booking.setRoom(availableRooms.getFirst());
+            booking.setAdults(adults);
+            booking.setChildren(childs);
+            booking.setPets(pet);
+            booking.setGuest(guest);
+            booking.setCheckin_date(check_in);
+            booking.setCheckout_date(check_out);
+            booking.setTotal_price(availableRooms.getFirst().getRoom_price() * (check_out.getTime() - check_in.getTime()) / (1000 * 60 * 60 * 24));
+            booking.setStatus("PENDIENTE");
+            booking.setCode(guest.getGuest_id() + String.valueOf(availableRooms.getFirst().getRoom_id()) + check_in.getTime());
+
+            System.out.println("Booking: " + booking.getRoom().getRoom_number() + " " + booking.getGuest().getFirst_name() + " " + booking.getCheckin_date() + " " + booking.getCheckout_date());
+            return bookingService.newBooking(booking);
+        }
+        else {
+            for(Booking booking : bookingService.getAllBookings()) {
+                for (Room room : availableRooms) {
+                    if (booking.getRoom().equals(room) && booking.getCheckin_date().compareTo(check_out) < 0 && booking.getCheckout_date().compareTo(check_in) > 0) {
+                        System.out.println("La habitación " + room.getRoom_number() + " no está disponible para las fechas seleccionadas");
+                    } else {
+                        Booking newBooking = new Booking();
+                        newBooking.setRoom(room);
+                        newBooking.setAdults(adults);
+                        newBooking.setChildren(childs);
+                        newBooking.setPets(pet);
+                        newBooking.setGuest(guest);
+                        newBooking.setCheckin_date(check_in);
+                        newBooking.setCheckout_date(check_out);
+                        newBooking.setTotal_price(room.getRoom_price() * (check_out.getTime() - check_in.getTime()) / (1000 * 60 * 60 * 24));
+                        newBooking.setStatus("PENDIENTE");
+                        newBooking.setCode(guest.getGuest_id() + String.valueOf(availableRooms.getFirst().getRoom_id()) + check_in.getTime());
+
+                        System.out.println("Booking: " + booking.getRoom().getRoom_number() + " " + booking.getGuest().getFirst_name() + " " + booking.getCheckin_date() + " " + booking.getCheckout_date());
+
+                        return bookingService.newBooking(newBooking);
+                    }
                 }
             }
         }
-
-        booking.setGuest(guestController.getGuest(guestId));
-        booking.setAdults(adults);
-        booking.setChildren(childs);
-        booking.setPets(pet);
-        booking.setCheckin_date(check_in);
-        booking.setCheckout_date(check_out);
-        booking.setTotal_price(booking.getRoom().getRoom_price() * (check_out.getTime() - check_in.getTime()) / (1000 * 60 * 60 * 24));
-
-        booking.getRoom().setRoom_availability("OCUPADA");
-
-        return bookingService.newBooking(booking);
+        System.out.println("No hay habitaciones disponibles para las fechas seleccionadas");
+        return null;
     }
 
     @PutMapping("/update-booking/{id}")

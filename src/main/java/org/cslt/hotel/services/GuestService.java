@@ -11,5 +11,6 @@ public interface GuestService {
     Guest newGuest(Guest guest);
     Guest updateGuest(Long id, Guest guest);
     void deleteGuestById(Long id);
+    Guest findGuestByDocNumber(String docNumber);
 
 }

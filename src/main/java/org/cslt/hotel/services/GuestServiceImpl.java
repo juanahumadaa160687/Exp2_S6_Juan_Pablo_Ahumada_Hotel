@@ -49,4 +49,9 @@ public class GuestServiceImpl implements GuestService {
         guestRepository.deleteById(id);
     }
 
+    @Override
+    public Guest findGuestByDocNumber(String docNumber) {
+        return guestRepository.findByDocNumber(docNumber);
+    }
+
 }

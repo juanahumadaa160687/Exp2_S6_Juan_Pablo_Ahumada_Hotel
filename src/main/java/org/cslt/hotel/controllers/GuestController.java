@@ -39,4 +39,9 @@ public class GuestController {
         guestService.deleteGuestById(id);
     }
 
+    @GetMapping("/{doc_number}")
+    public Guest getGuestByDocNumber(@PathVariable String doc_number) {
+        return guestService.findGuestByDocNumber(doc_number);
+    }
+
 }
