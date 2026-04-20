@@ -46,11 +46,11 @@ public class Booking {
     @Column(nullable = false, columnDefinition = "DECIMAL(10, 2)")
     private Double total_price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "room_id", nullable = false, foreignKey = @ForeignKey(name = "FK_BOOKING_ROOM"))
     private Room room;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "guest_id", nullable = false, foreignKey = @ForeignKey(name = "FK_BOOKING_GUEST"))
     private Guest guest;
 
