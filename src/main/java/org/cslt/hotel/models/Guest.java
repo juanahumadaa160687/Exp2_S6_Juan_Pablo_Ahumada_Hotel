@@ -20,7 +20,7 @@ public class Guest {
     @Column(nullable = false, columnDefinition = "VARCHAR(20) CHECK(doc_type IN ('DNI', 'PASAPORTE'))")
     private String doc_type;
 
-    @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(20)")
+    @Column(nullable = false, columnDefinition = "VARCHAR(20)")
     private String doc_number;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(50)")

@@ -30,16 +30,19 @@ public class GuestServiceImpl implements GuestService {
 
     @Override
     public Guest updateGuest(Long id, Guest guest) {
-        Guest existingGuest = guestRepository.findById(id).orElse(null);
-        if (existingGuest != null) {
-            existingGuest.setFirst_name(guest.getFirst_name());
-            existingGuest.setLast_name(guest.getLast_name());
-            existingGuest.setEmail(guest.getEmail());
-            existingGuest.setPhone_number(guest.getPhone_number());
-            existingGuest.setAddress(guest.getAddress());
-            existingGuest.setCity(guest.getCity());
-            existingGuest.setCountry(guest.getCountry());
-            guestRepository.save(existingGuest);
+        for (Guest g : guestRepository.findAll()) {
+            if (g.getGuest_id().equals(id)) {
+                g.setDoc_type(guest.getDoc_type());
+                g.setDoc_number(guest.getDoc_number());
+                g.setFirst_name(guest.getFirst_name());
+                g.setLast_name(guest.getLast_name());
+                g.setEmail(guest.getEmail());
+                g.setPhone_number(guest.getPhone_number());
+                g.setAddress(guest.getAddress());
+                g.setCity(guest.getCity());
+                g.setCountry(guest.getCountry());
+                return guestRepository.save(g);
+            }
         }
         return null;
     }

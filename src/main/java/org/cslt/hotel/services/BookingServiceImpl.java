@@ -34,6 +34,9 @@ public class BookingServiceImpl implements BookingService {
     public Booking updateBooking(Long id, Booking booking) {
         Booking existingBooking = bookingRepository.findById(id).orElse(null);
         if (existingBooking != null) {
+            existingBooking.setStatus(booking.getStatus());
+            existingBooking.setAdults(booking.getAdults());
+            existingBooking.setChildren(booking.getChildren());
             existingBooking.setGuest(booking.getGuest());
             existingBooking.setRoom(booking.getRoom());
             existingBooking.setCheckin_date(booking.getCheckin_date());

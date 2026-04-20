@@ -24,22 +24,22 @@ public class GuestController {
         return guestService.getGuestById(id);
     }
 
-    @PostMapping("/new-guest")
+    @PostMapping("/new")
     public Guest newGuest(@RequestBody Guest guest) {
         return guestService.newGuest(guest);
     }
 
-    @PutMapping("/update-guest/{id}")
+    @PutMapping("/edit/{id}")
     public Guest updateGuest(@PathVariable Long id, @RequestBody Guest guest) {
         return guestService.updateGuest(id, guest);
     }
 
-    @DeleteMapping("/delete-guest/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteGuest(@PathVariable Long id) {
         guestService.deleteGuestById(id);
     }
 
-    @GetMapping("/{doc_number}")
+    @GetMapping("/search/{doc_number}")
     public Guest getGuestByDocNumber(@PathVariable String doc_number) {
         return guestService.findGuestByDocNumber(doc_number);
     }

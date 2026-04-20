@@ -16,6 +16,9 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
+    @Autowired
+    GuestController guestController;
+
     @GetMapping("/all")
     public List<Booking> getAllBookings() {
         try {
@@ -34,16 +37,16 @@ public class BookingController {
         }
     }
 
-    @PostMapping("/new-booking")
+    @PostMapping("/new")
     public Booking newBooking(@RequestParam String doc_number, @RequestParam int adults, @RequestParam int childs, @RequestParam String pet, @RequestParam Date check_in, @RequestParam Date check_out) {
 
         System.out.println("New booking");
 
         List<Room> availableRooms = bookingService.searchRooms(adults + childs, pet);
 
-        Guest guest = bookingService.findGuestByDocNumber(doc_number);
+        System.out.println("Available rooms: " + availableRooms.size());
 
-        System.out.println("Guest: " + guest.getFirst_name() + " " + guest.getLast_name());
+        Guest guest = guestController.getGuestByDocNumber(doc_number);
 
         if(bookingService.getAllBookings().isEmpty()) {
             Booking booking = new Booking();
@@ -61,6 +64,7 @@ public class BookingController {
             System.out.println("Booking: " + booking.getRoom().getRoom_number() + " " + booking.getGuest().getFirst_name() + " " + booking.getCheckin_date() + " " + booking.getCheckout_date());
             return bookingService.newBooking(booking);
         }
+
         else {
             for(Booking booking : bookingService.getAllBookings()) {
                 for (Room room : availableRooms) {
@@ -90,7 +94,7 @@ public class BookingController {
         return null;
     }
 
-    @PutMapping("/update-booking/{id}")
+    @PutMapping("/edit/{id}")
     public Booking updateBooking(@PathVariable Long id, @RequestBody Booking booking) {
         try {
             return bookingService.updateBooking(id, booking);
@@ -99,7 +103,7 @@ public class BookingController {
         }
     }
 
-    @DeleteMapping("/delete-booking/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteBooking(@PathVariable Long id) {
         try {
             bookingService.deleteBookingById(id);

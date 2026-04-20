@@ -24,17 +24,17 @@ public class RoomController {
         return roomService.getRoomById(id);
     }
 
-    @PostMapping("/new-room")
+    @PostMapping("/new")
     public Room newRoom(@RequestBody Room room) {
         return roomService.newRoom(room);
     }
 
-    @PutMapping("/update-room/{id}")
+    @PutMapping("/edit/{id}")
     public Room updateRoom(@PathVariable Long id, @RequestBody Room room) {
         return roomService.updateRoom(id, room);
     }
 
-    @DeleteMapping("/delete-room/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteRoom(@PathVariable Long id) {
         roomService.deleteRoomById(id);
     }
