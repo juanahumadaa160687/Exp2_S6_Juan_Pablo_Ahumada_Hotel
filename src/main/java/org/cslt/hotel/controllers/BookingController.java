@@ -40,8 +40,6 @@ public class BookingController {
     @PostMapping("/new")
     public Booking newBooking(@RequestParam String doc_number, @RequestParam int adults, @RequestParam int childs, @RequestParam String pet, @RequestParam Date check_in, @RequestParam Date check_out) {
 
-        System.out.println("New booking");
-
         Guest guest = guestController.getGuestByDocNumber(doc_number);
 
         if(guest == null){
