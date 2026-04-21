@@ -42,51 +42,40 @@ public class BookingController {
 
         System.out.println("New booking");
 
-        List<Room> availableRooms = bookingService.searchRooms(adults + childs, pet);
-
-        System.out.println("Available rooms: " + availableRooms.size());
-
         Guest guest = guestController.getGuestByDocNumber(doc_number);
 
-        if(bookingService.getAllBookings().isEmpty()) {
-            Booking booking = new Booking();
-            booking.setRoom(availableRooms.getFirst());
-            booking.setAdults(adults);
-            booking.setChildren(childs);
-            booking.setPets(pet);
-            booking.setGuest(guest);
-            booking.setCheckin_date(check_in);
-            booking.setCheckout_date(check_out);
-            booking.setTotal_price(availableRooms.getFirst().getRoom_price() * (check_out.getTime() - check_in.getTime()) / (1000 * 60 * 60 * 24));
-            booking.setStatus("PENDIENTE");
-            booking.setCode(guest.getGuest_id() + String.valueOf(availableRooms.getFirst().getRoom_id()) + check_in.getTime());
-
-            System.out.println("Booking: " + booking.getRoom().getRoom_number() + " " + booking.getGuest().getFirst_name() + " " + booking.getCheckin_date() + " " + booking.getCheckout_date());
-            return bookingService.newBooking(booking);
+        if(guest == null){
+            System.out.println("No se encontró un huésped con el número de documento proporcionado");
+            return null;
         }
 
-        else {
-            for(Booking booking : bookingService.getAllBookings()) {
-                for (Room room : availableRooms) {
-                    if (booking.getRoom().equals(room) && booking.getCheckin_date().compareTo(check_out) < 0 && booking.getCheckout_date().compareTo(check_in) > 0) {
-                        System.out.println("La habitación " + room.getRoom_number() + " no está disponible para las fechas seleccionadas");
-                    } else {
-                        Booking newBooking = new Booking();
-                        newBooking.setRoom(room);
-                        newBooking.setAdults(adults);
-                        newBooking.setChildren(childs);
-                        newBooking.setPets(pet);
-                        newBooking.setGuest(guest);
-                        newBooking.setCheckin_date(check_in);
-                        newBooking.setCheckout_date(check_out);
-                        newBooking.setTotal_price(room.getRoom_price() * (check_out.getTime() - check_in.getTime()) / (1000 * 60 * 60 * 24));
-                        newBooking.setStatus("PENDIENTE");
-                        newBooking.setCode(guest.getGuest_id() + String.valueOf(availableRooms.getFirst().getRoom_id()) + check_in.getTime());
+        List<Room> availableRooms = bookingService.searchRooms(adults + childs, pet);
 
-                        System.out.println("Booking: " + booking.getRoom().getRoom_number() + " " + booking.getGuest().getFirst_name() + " " + booking.getCheckin_date() + " " + booking.getCheckout_date());
+        if (availableRooms.isEmpty()) {
+            System.out.println("No hay habitaciones disponibles que cumplan con sus necesidades");
+            return null;
+        }
 
-                        return bookingService.newBooking(newBooking);
-                    }
+        for(Booking booking : bookingService.getAllBookings()) {
+            for (Room room : availableRooms) {
+                if (booking.getRoom().equals(room) && booking.getCheckin_date().compareTo(check_out) < 0 && booking.getCheckout_date().compareTo(check_in) > 0) {
+                    System.out.println("La habitación " + room.getRoom_number() + " no está disponible para las fechas seleccionadas");
+                } else {
+                    Booking newBooking = new Booking();
+                    newBooking.setRoom(room);
+                    newBooking.setAdults(adults);
+                    newBooking.setChildren(childs);
+                    newBooking.setPets(pet);
+                    newBooking.setGuest(guest);
+                    newBooking.setCheckin_date(check_in);
+                    newBooking.setCheckout_date(check_out);
+                    newBooking.setTotal_price(room.getRoom_price() * ((check_out.getTime() - check_in.getTime()) / (1000 * 60 * 60 * 24)));
+                    newBooking.setStatus("PENDIENTE");
+                    newBooking.setCode("BOOK" + System.currentTimeMillis() + "-" + guest.getGuest_id());
+
+                    System.out.println("Booking: " + booking.getRoom().getRoom_number() + " " + booking.getGuest().getFirst_name() + " " + booking.getCheckin_date() + " " + booking.getCheckout_date());
+
+                    return bookingService.newBooking(newBooking);
                 }
             }
         }
