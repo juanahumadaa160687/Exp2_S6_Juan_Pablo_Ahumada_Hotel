@@ -96,7 +96,7 @@ public class BookingControllerTest {
     @DisplayName("Test Get Booking by ID")
     public void testGetBookingById() throws Exception {
 
-        when(service.newBooking(booking)).thenReturn(booking);
+        when(service.getBookingById(booking.getBooking_id())).thenReturn(booking);
         mockMvc.perform(get("/bookings/" + booking.getBooking_id()))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.booking_id").value(booking.getBooking_id()));
