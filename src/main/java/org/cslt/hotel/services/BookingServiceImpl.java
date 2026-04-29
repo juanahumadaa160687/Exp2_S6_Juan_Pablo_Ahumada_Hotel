@@ -1,8 +1,9 @@
 package org.cslt.hotel.services;
 
-import org.cslt.hotel.models.Booking;
-import org.cslt.hotel.models.Guest;
-import org.cslt.hotel.models.Room;
+import org.cslt.hotel.models.booking.Booking;
+import org.cslt.hotel.models.guest.Guest;
+import org.cslt.hotel.models.room.PetFriendly;
+import org.cslt.hotel.models.room.Room;
 import org.cslt.hotel.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,36 +32,26 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking updateBooking(Long id, Booking booking) {
-        Booking existingBooking = bookingRepository.findById(id).orElse(null);
-        if (existingBooking != null) {
-            existingBooking.setStatus(booking.getStatus());
-            existingBooking.setAdults(booking.getAdults());
-            existingBooking.setChildren(booking.getChildren());
-            existingBooking.setGuest(booking.getGuest());
-            existingBooking.setRoom(booking.getRoom());
-            existingBooking.setCheckin_date(booking.getCheckin_date());
-            existingBooking.setCheckout_date(booking.getCheckout_date());
-            return bookingRepository.save(existingBooking);
-        }
-        return null;
-    }
-
-    @Override
     public void deleteBookingById(Long id) {
 
         bookingRepository.deleteById(id);
     }
 
     @Override
-    public List<Room> searchRooms(int capacity, String is_PetFriendly) {
-        return bookingRepository.searchRooms(capacity, is_PetFriendly);
+    public List<Room> searchRooms(int capacity, PetFriendly person_friendly) {
+        return bookingRepository.searchRooms(capacity, person_friendly);
     }
 
     @Override
-    public Guest findGuestByDocNumber(String docNumber) {
+    public Booking confirmBooking(Long id, Booking booking) {
+        Booking existingBooking = bookingRepository.findById(id).orElse(null);
 
-        return bookingRepository.findGuestByDocNumber(docNumber);
+        if (existingBooking != null) {
+            existingBooking.setStatus(booking.getStatus());
+            return bookingRepository.save(existingBooking);
+        }
+
+        return null;
     }
 
 }

@@ -1,4 +1,4 @@
-package org.cslt.hotel.models;
+package org.cslt.hotel.models.guest;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,10 +17,11 @@ public class Guest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long guest_id;
 
+    @Enumerated(EnumType.STRING) //DNI, PASSAPORTE
     @Column(nullable = false, columnDefinition = "VARCHAR(20) CHECK(doc_type IN ('DNI', 'PASAPORTE'))")
-    private String doc_type;
+    private DocType doc_type;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(20)")
+    @Column(nullable = false, columnDefinition = "VARCHAR(20) UNIQUE")
     private String doc_number;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(50)")
@@ -45,3 +46,4 @@ public class Guest {
     private String country;
 
 }
+

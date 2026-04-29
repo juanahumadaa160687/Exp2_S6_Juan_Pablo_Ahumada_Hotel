@@ -1,6 +1,6 @@
 package org.cslt.hotel.services;
 
-import org.cslt.hotel.models.Guest;
+import org.cslt.hotel.models.guest.Guest;
 
 import java.util.List;
 

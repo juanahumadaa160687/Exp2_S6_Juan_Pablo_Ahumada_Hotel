@@ -1,4 +1,4 @@
-package org.cslt.hotel.models;
+package org.cslt.hotel.models.room;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,8 +23,9 @@ public class Room {
     @Column(nullable = false, columnDefinition = "INTEGER")
     private int  room_number;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "VARCHAR(20)")
-    private String room_type;
+    private RoomType room_type;
 
     @Column(nullable = false, columnDefinition = "DECIMAL(10, 2)")
     private Double room_price;
@@ -35,7 +36,8 @@ public class Room {
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String room_description;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(2)")
-    private String is_PetFriendly;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "VARCHAR(15)")
+    private PetFriendly pet_friendly;
 
 }

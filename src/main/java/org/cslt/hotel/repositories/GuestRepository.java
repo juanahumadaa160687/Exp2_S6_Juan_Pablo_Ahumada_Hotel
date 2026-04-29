@@ -1,6 +1,6 @@
 package org.cslt.hotel.repositories;
 
-import org.cslt.hotel.models.Guest;
+import org.cslt.hotel.models.guest.Guest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

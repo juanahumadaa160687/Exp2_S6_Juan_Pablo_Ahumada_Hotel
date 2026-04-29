@@ -1,6 +1,6 @@
 package org.cslt.hotel.services;
 
-import org.cslt.hotel.models.Room;
+import org.cslt.hotel.models.room.Room;
 import org.cslt.hotel.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,18 +42,9 @@ public class RoomServiceImpl implements RoomService {
             existingRoom.setRoom_price(room.getRoom_price());
             existingRoom.setRoom_capacity(room.getRoom_capacity());
             existingRoom.setRoom_description(room.getRoom_description());
-            existingRoom.setRoom_type(room.getIs_PetFriendly());
+            existingRoom.setPet_friendly(room.getPet_friendly());
+            existingRoom.setRoom_price(room.getRoom_price());
             return roomRepository.save(existingRoom);
-        }
-        return null;
-    }
-
-    @Override
-    public List<Room> searchRooms(int capacity, String is_PetFriendly) {
-        for(Room room : roomRepository.findAll()) {
-            if (room.getRoom_capacity() >= capacity && room.getIs_PetFriendly().equals(is_PetFriendly)) {
-                return roomRepository.searchRooms(capacity, is_PetFriendly);
-            }
         }
         return null;
     }

@@ -1,10 +1,9 @@
-package org.cslt.hotel.models;
+package org.cslt.hotel.models.booking;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.cslt.hotel.models.guest.Guest;
+import org.cslt.hotel.models.room.Room;
 
 import java.sql.Date;
 
@@ -25,8 +24,9 @@ public class Booking {
     @Column(length = 100, nullable = false, unique = true, columnDefinition = "VARCHAR(100)")
     private String code;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "VARCHAR(20) CHECK(status IN ('CONFIRMADA', 'PENDIENTE'))")
-    private String status;
+    private Status status;
 
     @Column(nullable = false, columnDefinition = "DATE")
     private Date checkin_date;
@@ -40,8 +40,9 @@ public class Booking {
     @Column(nullable = false, columnDefinition = "INTEGER")
     private int children;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "VARCHAR(3) CHECK(pets IN ('SI', 'NO'))")
-    private String pets;
+    private Pets pets;
 
     @Column(nullable = false, columnDefinition = "DECIMAL(10, 2)")
     private Double total_price;

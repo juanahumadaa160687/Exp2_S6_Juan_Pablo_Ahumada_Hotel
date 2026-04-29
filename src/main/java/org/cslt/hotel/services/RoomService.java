@@ -1,7 +1,7 @@
 package org.cslt.hotel.services;
 
 
-import org.cslt.hotel.models.Room;
+import org.cslt.hotel.models.room.Room;
 
 import java.util.List;
 
@@ -12,6 +12,5 @@ public interface RoomService {
     Room newRoom(Room room);
     Room updateRoom(Long id, Room room);
     void deleteRoomById(Long id);
-    List<Room> searchRooms(int capacity, String is_PetFriendly);
 
 }
