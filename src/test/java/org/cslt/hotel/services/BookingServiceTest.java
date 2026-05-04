@@ -9,8 +9,6 @@ import org.cslt.hotel.models.room.PetFriendly;
 import org.cslt.hotel.models.room.Room;
 import org.cslt.hotel.models.room.RoomType;
 import org.cslt.hotel.repositories.BookingRepository;
-import org.cslt.hotel.repositories.GuestRepository;
-import org.cslt.hotel.repositories.RoomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

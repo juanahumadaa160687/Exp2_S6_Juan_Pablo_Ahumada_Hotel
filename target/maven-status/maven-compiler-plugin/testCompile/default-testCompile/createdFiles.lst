@@ -1,0 +1,13 @@
+org/cslt/hotel/repository/RoomRepositoryTest.class
+org/cslt/hotel/controllers/GuestControllerTest.class
+org/cslt/hotel/models/RoomTest.class
+org/cslt/hotel/controllers/BookingControllerTest.class
+org/cslt/hotel/services/BookingServiceTest.class
+org/cslt/hotel/HotelApplicationTests.class
+org/cslt/hotel/controllers/RoomControllerTest.class
+org/cslt/hotel/repository/GuestRepositoryTest.class
+org/cslt/hotel/models/BookingTest.class
+org/cslt/hotel/services/GuestServiceTest.class
+org/cslt/hotel/repository/BookingRepositoryTest.class
+org/cslt/hotel/services/RoomServiceTest.class
+org/cslt/hotel/models/GuestTest.class

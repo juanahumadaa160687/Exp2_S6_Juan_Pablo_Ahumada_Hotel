@@ -1,0 +1,13 @@
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/HotelApplicationTests.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/controllers/BookingControllerTest.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/controllers/GuestControllerTest.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/controllers/RoomControllerTest.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/models/BookingTest.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/models/GuestTest.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/models/RoomTest.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/repository/BookingRepositoryTest.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/repository/GuestRepositoryTest.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/repository/RoomRepositoryTest.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/services/BookingServiceTest.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/services/GuestServiceTest.java
+/Users/jp/IdeaProjects/hotel/src/test/java/org/cslt/hotel/services/RoomServiceTest.java

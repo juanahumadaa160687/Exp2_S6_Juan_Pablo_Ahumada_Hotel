@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,6 +66,7 @@ public class GuestServiceTest {
     @DisplayName("Test create Guest")
     public void createGuest() {
         when(repository.save(guest)).thenReturn(guest);
+
         assertEquals(guest, service.newGuest(guest));
     }
 
